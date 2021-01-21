@@ -1,10 +1,12 @@
 package domainapp.modules.simple.dom.so;
 
 import java.util.Comparator;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.VersionStrategy;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -22,6 +24,7 @@ import static org.apache.isis.applib.annotation.SemanticsOf.IDEMPOTENT;
 import static org.apache.isis.applib.annotation.SemanticsOf.NON_IDEMPOTENT_ARE_YOU_SURE;
 
 import domainapp.modules.simple.SimpleModule;
+import domainapp.modules.simple.dom.co.SimpleChildObject;
 import domainapp.modules.simple.types.Name;
 import domainapp.modules.simple.types.Notes;
 
@@ -66,7 +69,19 @@ public class SimpleObject implements Comparable<SimpleObject> {
     @Notes
     @Getter @Setter
     private String notes;
-
+    
+    @Persistent(mappedBy = "simpleObject")
+    @Getter @Setter
+    private Set<SimpleChildObject> children;
+    
+    @Action
+    public SimpleObject addChild(String name) {
+    	SimpleChildObject child = new SimpleChildObject();
+    	child.setName(name);
+    	child.setSimpleObject(this);
+    	repositoryService.persist(child);
+    	return this;
+    }
 
     public static class UpdateNameActionDomainEvent extends SimpleObject.ActionDomainEvent {}
     @Action(semantics = IDEMPOTENT,

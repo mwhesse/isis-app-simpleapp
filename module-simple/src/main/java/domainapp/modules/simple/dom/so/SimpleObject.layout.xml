@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:c="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
+<bs3:grid xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/links http://isis.apache.org/applib/layout/links/links.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:cpt="http://isis.apache.org/applib/layout/component" xmlns:lnk="http://isis.apache.org/applib/layout/links" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <bs3:row>
         <bs3:col span="12" unreferencedActions="true">
-            <c:domainObject bookmarking="AS_ROOT"/>
+            <cpt:domainObject bookmarking="AS_ROOT"/>
         </bs3:col>
     </bs3:row>
     <bs3:row>
@@ -12,38 +11,67 @@
                 <bs3:tab name="General">
                     <bs3:row>
                         <bs3:col span="12">
-                            <c:fieldSet name="Name">
-                                <c:action id="delete">
-                                    <c:describedAs>Deletes this object from the persistent datastore</c:describedAs>
-                                </c:action>
-                                <c:property id="name" namedEscaped="true">
-                                    <c:action id="updateName" promptStyle="INLINE"/>
-                                </c:property>
-                                <c:property id="notes"/>
-                            </c:fieldSet>
+                            <cpt:fieldSet name="Name" id="name">
+                                <cpt:action id="delete" position="PANEL">
+                                    <cpt:describedAs>Deletes this object from the persistent datastore</cpt:describedAs>
+                                </cpt:action>
+                                <cpt:property id="name" namedEscaped="true">
+                                    <cpt:action id="updateName" position="BELOW" promptStyle="INLINE"/>
+                                </cpt:property>
+                                <cpt:property id="notes"/>
+                            </cpt:fieldSet>
+                            <cpt:fieldSet name="Contributed by Collection_count Mixin" id="other" unreferencedProperties="true">
+                                <cpt:property id="numberOfChildren">
+                                    <cpt:named>Number Of Children</cpt:named>
+                                </cpt:property>
+                            </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
                 <bs3:tab name="Metadata">
                     <bs3:row>
                         <bs3:col span="12">
-                            <c:fieldSet name="Metadata"/>
-                        </bs3:col>
-                    </bs3:row>
-                </bs3:tab>
-                <bs3:tab name="Other">
-                    <bs3:row>
-                        <bs3:col span="12">
-                            <c:fieldSet name="Other" unreferencedProperties="true"/>
+                            <cpt:fieldSet name="Metadata" id="metadata">
+                                <cpt:action id="downloadLayoutXml" position="PANEL_DROPDOWN"/>
+                                <cpt:action id="downloadMetamodelXml" position="PANEL_DROPDOWN"/>
+                                <cpt:action id="inspectMetamodel" position="PANEL_DROPDOWN"/>
+                                <cpt:action id="downloadJdoMetadata" position="PANEL_DROPDOWN"/>
+                                <cpt:action id="openRestApi" position="PANEL_DROPDOWN"/>
+                                <cpt:action id="rebuildMetamodel" position="PANEL_DROPDOWN"/>
+                                <cpt:property hidden="ALL_TABLES" id="objectType" typicalLength="25">
+                                    <cpt:named>Object Type</cpt:named>
+                                </cpt:property>
+                                <cpt:property hidden="ALL_TABLES" id="objectIdentifier" typicalLength="25">
+                                    <cpt:named>Object Identifier</cpt:named>
+                                </cpt:property>
+                                <cpt:property hidden="ALL_TABLES" id="datanucleusIdLong" typicalLength="18">
+                                    <cpt:named>Id</cpt:named>
+                                </cpt:property>
+                                <cpt:property hidden="ALL_TABLES" id="datanucleusVersionLong" typicalLength="18">
+                                    <cpt:named>Version</cpt:named>
+                                </cpt:property>
+                                <cpt:property hidden="ALL_TABLES" id="datanucleusVersionTimestamp" typicalLength="25">
+                                    <cpt:named>Version</cpt:named>
+                                </cpt:property>
+                            </cpt:fieldSet>
                         </bs3:col>
                     </bs3:row>
                 </bs3:tab>
             </bs3:tabGroup>
-            <bs3:tabGroup>
-            </bs3:tabGroup>
+            <bs3:tabGroup/>
         </bs3:col>
         <bs3:col span="6">
-            <bs3:tabGroup  unreferencedCollections="true">
+            <bs3:tabGroup unreferencedCollections="true">
+                <bs3:tab name="Children">
+                    <bs3:row>
+                        <bs3:col span="12" size="MD">
+                            <cpt:collection defaultView="table" id="children" paged="12">
+                                <cpt:named>Children</cpt:named>
+                                <cpt:action id="addChild"/>
+                            </cpt:collection>
+                        </bs3:col>
+                    </bs3:row>
+                </bs3:tab>
             </bs3:tabGroup>
         </bs3:col>
     </bs3:row>
