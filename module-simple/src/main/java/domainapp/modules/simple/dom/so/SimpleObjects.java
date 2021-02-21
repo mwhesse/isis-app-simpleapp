@@ -32,31 +32,6 @@ public class SimpleObjects {
         return repositoryService.persist(SimpleObject.withName(name));
     }
 
-    public static class FindByNameActionDomainEvent extends ActionDomainEvent {}
-    @Action(semantics = SemanticsOf.SAFE, domainEvent = FindByNameActionDomainEvent.class)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT, promptStyle = PromptStyle.DIALOG_SIDEBAR)
-    public List<SimpleObject> findByName(
-            @Name final String name
-            ) {
-        JDOQLTypedQuery<SimpleObject> q = isisJdoSupport.newTypesafeQuery(SimpleObject.class);
-        final QSimpleObject cand = QSimpleObject.candidate();
-        q = q.filter(
-                cand.name.indexOf(q.stringParameter("name")).ne(-1)
-                );
-        return q.setParameter("name", name)
-                .executeList();
-    }
-
-    @Programmatic
-    public SimpleObject findByNameExact(final String name) {
-        JDOQLTypedQuery<SimpleObject> q = isisJdoSupport.newTypesafeQuery(SimpleObject.class);
-        final QSimpleObject cand = QSimpleObject.candidate();
-        q = q.filter(
-                cand.name.eq(q.stringParameter("name"))
-                );
-        return q.setParameter("name", name)
-                .executeUnique();
-    }
 
     public static class ListAllActionDomainEvent extends ActionDomainEvent {}
     @Action(semantics = SemanticsOf.SAFE)
@@ -64,15 +39,5 @@ public class SimpleObjects {
     public List<SimpleObject> listAll() {
         return repositoryService.allInstances(SimpleObject.class);
     }
-
-    @Programmatic
-    public void ping() {
-        JDOQLTypedQuery<SimpleObject> q = isisJdoSupport.newTypesafeQuery(SimpleObject.class);
-        final QSimpleObject candidate = QSimpleObject.candidate();
-        q.range(0,2);
-        q.orderBy(candidate.name.asc());
-        q.executeList();
-    }
-
 
 }

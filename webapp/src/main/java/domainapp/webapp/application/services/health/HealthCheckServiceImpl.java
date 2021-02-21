@@ -25,11 +25,6 @@ public class HealthCheckServiceImpl implements HealthCheckService {
 
     @Override
     public Health check() {
-        try {
-            simpleObjects.ping();
-            return Health.ok();
-        } catch (Exception ex) {
-            return Health.error(ex);
-        }
+        return Health.ok();
     }
 }
