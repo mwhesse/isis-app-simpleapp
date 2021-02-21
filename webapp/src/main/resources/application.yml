@@ -107,6 +107,12 @@ app:
           message: "'{character}' is invalid."
           prohibited-characters: "&%$!"
 
+# 
+# To test AAD login on localhost during development
+# check and disable chrome://flags/#cookies-without-same-site-must-be-secure
+# otherwise state and nonce cookies are not set and validation in 
+# AadOpenIdAuthenticationFilter fails.
+#
 shiro.aad:
   tenant: "[mytenant].onmicrosoft.com"
   tenant-id: "[tenantId]"
