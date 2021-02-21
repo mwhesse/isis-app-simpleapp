@@ -166,6 +166,13 @@
             <groupId>org.apache.isis.extensions</groupId>
             <artifactId>isis-extensions-flyway-impl</artifactId>
         </dependency>
+        
+        <!-- Shiro AAD -->
+		<dependency>
+		    <groupId>com.github.morulay</groupId>
+		    <artifactId>shiro-aad</artifactId>
+		    <version>0.2.0</version>
+		</dependency>       
 
         <!-- TESTING -->
         <dependency>

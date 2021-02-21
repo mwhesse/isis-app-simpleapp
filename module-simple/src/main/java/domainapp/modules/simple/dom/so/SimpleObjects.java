@@ -7,7 +7,6 @@ import javax.jdo.JDOQLTypedQuery;
 
 import org.apache.isis.applib.annotation.*;
 import org.apache.isis.applib.services.repository.RepositoryService;
-import org.apache.isis.persistence.jdo.applib.services.IsisJdoSupport_v3_2;
 
 import domainapp.modules.simple.SimpleModule;
 import domainapp.modules.simple.types.Name;
@@ -20,7 +19,6 @@ import domainapp.modules.simple.types.Name;
 public class SimpleObjects {
 
     private final RepositoryService repositoryService;
-    private final IsisJdoSupport_v3_2 isisJdoSupport;
 
     public static class ActionDomainEvent extends SimpleModule.ActionDomainEvent<SimpleObjects> {}
 

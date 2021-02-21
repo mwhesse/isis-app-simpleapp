@@ -107,3 +107,9 @@ app:
           message: "'{character}' is invalid."
           prohibited-characters: "&%$!"
 
+shiro.aad:
+  tenant: "[mytenant].onmicrosoft.com"
+  tenant-id: "[tenantId]"
+  client-id: "[clientId]"
+  redirect-uri: "/aadLogin"
+  post-logout-uri: "/"

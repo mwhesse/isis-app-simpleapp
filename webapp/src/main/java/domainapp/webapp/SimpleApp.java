@@ -5,9 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
 
+import com.github.morulay.shiro.aad.spring.boot.autoconfigure.ShiroAadAutoconfiguration;
+
 import org.apache.isis.core.config.presets.IsisPresets;
 
-@SpringBootApplication
+@SpringBootApplication(
+		// not needed
+		exclude={ShiroAadAutoconfiguration.class}
+)
 @Import({
     AppManifest.class,
 })
@@ -21,5 +26,4 @@ public class SimpleApp extends SpringBootServletInitializer {
         IsisPresets.prototyping();
         SpringApplication.run(new Class[] { SimpleApp.class }, args);
     }
-
 }
