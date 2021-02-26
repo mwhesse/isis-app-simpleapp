@@ -12,6 +12,8 @@ import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.CommandReification;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
+import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.Publishing;
 import org.apache.isis.applib.services.message.MessageService;
 import org.apache.isis.applib.services.repository.RepositoryService;
@@ -58,6 +60,10 @@ public class SimpleObject implements Comparable<SimpleObject> {
     public String title() {
         return "Object: " + getName();
     }
+    
+    public String layout() {
+    	return getLayoutOption().name();
+    }
 
     @Name
     @Getter @Setter @ToString.Include
@@ -66,7 +72,10 @@ public class SimpleObject implements Comparable<SimpleObject> {
     @Notes
     @Getter @Setter
     private String notes;
-
+    
+    @Property(editing = Editing.ENABLED)
+    @Getter @Setter
+    private LayoutOption layoutOption = LayoutOption.OPTION1;
 
     public static class UpdateNameActionDomainEvent extends SimpleObject.ActionDomainEvent {}
     @Action(semantics = IDEMPOTENT,
